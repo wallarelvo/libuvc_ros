@@ -120,24 +120,24 @@ void CameraDriver::ReconfigureCallback(UVCCameraConfig &new_config, uint32_t lev
       }                                                                 \
     }
 
-    PARAM_INT(scanning_mode, scanning_mode, new_config.scanning_mode);
+    // PARAM_INT(scanning_mode, scanning_mode, new_config.scanning_mode);
     PARAM_INT(auto_exposure, ae_mode, 1 << new_config.auto_exposure);
     PARAM_INT(auto_exposure_priority, ae_priority, new_config.auto_exposure_priority);
     PARAM_INT(exposure_absolute, exposure_abs, new_config.exposure_absolute * 10000);
-    PARAM_INT(auto_focus, focus_auto, new_config.auto_focus ? 1 : 0);
-    PARAM_INT(focus_absolute, focus_abs, new_config.focus_absolute);
-    PARAM_INT(gain, gain, new_config.gain);
-    PARAM_INT(iris_absolute, iris_abs, new_config.iris_absolute);
+    // PARAM_INT(auto_focus, focus_auto, new_config.auto_focus ? 1 : 0);
+    // PARAM_INT(focus_absolute, focus_abs, new_config.focus_absolute);
+    // PARAM_INT(gain, gain, new_config.gain);
+    // PARAM_INT(iris_absolute, iris_abs, new_config.iris_absolute);
     PARAM_INT(brightness, brightness, new_config.brightness);
-    
 
-    if (new_config.pan_absolute != config_.pan_absolute || new_config.tilt_absolute != config_.tilt_absolute) {
-      if (uvc_set_pantilt_abs(devh_, new_config.pan_absolute, new_config.tilt_absolute)) {
-        ROS_WARN("Unable to set pantilt to %d, %d", new_config.pan_absolute, new_config.tilt_absolute);
-        new_config.pan_absolute = config_.pan_absolute;
-        new_config.tilt_absolute = config_.tilt_absolute;
-      }
-    }
+
+    // if (new_config.pan_absolute != config_.pan_absolute || new_config.tilt_absolute != config_.tilt_absolute) {
+    //   if (uvc_set_pantilt_abs(devh_, new_config.pan_absolute, new_config.tilt_absolute)) {
+    //     ROS_WARN("Unable to set pantilt to %d, %d", new_config.pan_absolute, new_config.tilt_absolute);
+    //     new_config.pan_absolute = config_.pan_absolute;
+    //     new_config.tilt_absolute = config_.tilt_absolute;
+    //   }
+    // }
     // TODO: roll_absolute
     // TODO: privacy
     // TODO: backlight_compensation
@@ -259,7 +259,7 @@ void CameraDriver::AutoControlsCallback(
       switch (selector) {
       case UVC_PU_WHITE_BALANCE_TEMPERATURE_CONTROL:
         uint8_t *data_char = (uint8_t*) data;
-        config_.white_balance_temperature = 
+        config_.white_balance_temperature =
           data_char[0] | (data_char[1] << 8);
         config_changed_ = true;
         break;
